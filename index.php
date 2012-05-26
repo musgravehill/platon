@@ -1,26 +1,21 @@
 <?php
+// Подключаем файл настроек
+require '/core/settings/config.php';
 
-// Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/core'));
+// Создаем строку путей
+$paths = implode(PATH_SEPARATOR, 
+    array(
+        $config['path']['library'], 
+        $config['path']['models'],
+        $config['path']['controllers'],
+    ));
 
-// Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
+// Устанавливаем пути по которым происходит поиск подключаемых файлов, это папка библиотек, моделей и системных файлов
+set_include_path($paths);
 
-// Ensure library/ is on include_path
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/library'),
-    get_include_path(),
-)));
+// Подключение главного системного класса
+require '/core/Bootstrap.php';
 
-/** Zend_Application */
-require_once 'Zend/Application.php';
-
-// Create application, bootstrap, and run
-$application = new Zend_Application(
-    APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini'
-);
-$application->bootstrap()
-            ->run();
+// Запуск приложения
+$bootstrap = new Bootstrap();
+$bootstrap->run($config);
