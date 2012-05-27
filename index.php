@@ -1,21 +1,21 @@
 <?php
-// Подключаем файл настроек
-require '/core/settings/config.php';
+define('ROOT',realpath(dirname(__FILE__)));
 
-// Создаем строку путей
-$paths = implode(PATH_SEPARATOR, 
-    array(
-        $config['path']['library'], 
-        $config['path']['models'],
-        $config['path']['controllers'],
-    ));
+// Define path to application directory
+defined('APPLICATION_PATH')
+    || define('APPLICATION_PATH', ROOT . '/core');
 
-// Устанавливаем пути по которым происходит поиск подключаемых файлов, это папка библиотек, моделей и системных файлов
-set_include_path($paths);
+// Define application environment
+defined('APPLICATION_ENV')
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
-// Подключение главного системного класса
-require '/core/Bootstrap.php';
+// Ensure library/ is on include_path
+set_include_path(implode(PATH_SEPARATOR, array(
+    realpath(APPLICATION_PATH . '/library'),
+    get_include_path(),
+)));
 
+<<<<<<< HEAD
 
 require_once 'core/library/Zend/Loader/Autoloader.php';
 $autoloader = Zend_Loader_Autoloader::getInstance();        
@@ -25,3 +25,17 @@ $autoloader = Zend_Loader_Autoloader::getInstance();
 // Запуск приложения
 $bootstrap = new Bootstrap();
 $bootstrap->run($config);
+=======
+/** Zend_Application */
+require_once 'Zend/Application.php';
+
+// Create application, bootstrap, and run
+$application = new Zend_Application(
+    APPLICATION_ENV,
+    APPLICATION_PATH . '/config.php'
+);
+
+
+$application->bootstrap()
+            ->run();
+>>>>>>> platon/master

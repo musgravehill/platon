@@ -1,6 +1,6 @@
 <?php
-require_once 'core/library/Zend/Loader/Autoloader.php';
 
+<<<<<<< HEAD
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
    private $_config = null;    
@@ -24,23 +24,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             
             // Создание объекта front контроллера 
             $front = Zend_Controller_Front::getInstance();
+=======
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
+>>>>>>> platon/master
 
-            // Настройка front контроллера, указание базового URL, правил маршрутизации 
-            $front->setBaseUrl($this->_config->url->base)
-                  ->throwexceptions(false) //////!!!! true теперь плагин на преДиспатч всегда ловит ошибки
-                  ->setRouter($router);
-                  
-            $front->setParam('disableOutputBuffering', true);            
-                 
-                        
-            $front = Zend_Controller_Front::getInstance();
-            
-           ///register plugins
-           // include("..\application\plugins\Cachepage.php");            
-            ///$front->registerPlugin(new Cachepage());
-           
-            //$front->dispatch();  диспетч вызовется сам после           
 
+<<<<<<< HEAD
             // Запуск приложения, в качестве параметра передаем путь к папке с контроллерами
             Zend_Controller_Front::run($this->_config->path->controllers);
            
@@ -101,48 +90,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $viewRenderer
             ->setView($view)
             ->setViewSuffix('phtml');     
+=======
+>>>>>>> platon/master
 
-        Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
-    }
-    
-    
-    
-    
-        
-            
-    /**
-     * Установка соединения с базой данных и помещение его объекта в реестр.
-     */
-    public function setDbAdapter() 
-    {
-        // Подключение к БД, так как Zend_Db "понимает" Zend_Config, нам достаточно передать специально сформированный объект конфигурации в метод factory
-        $db = Zend_Db::factory($this->_config->db);        
-        // Изменяем режим извлечения данных, FETCH_OBJ - данные в виде массива объектов
-        // По умолчанию стоит режим FETCH_ASSOC - массив ассоциативных массивов.
-        $db->setFetchMode(Zend_Db::FETCH_OBJ);             
-        // Задание адаптера по умолчанию для наследников класса Zend_Db_Table_Abstract 
-        Zend_Db_Table_Abstract::setDefaultAdapter($db);          
-        // Занесение объекта соединения c БД в реестр
-        Zend_Registry::set('db', $db);        
-        
+    private function _initDB() {
+        $config = $this->getOption('db');
+        $db = Zend_Db::factory($config['adapter'], $config['params']);
+        $db->setFetchMode(Zend_Db::FETCH_OBJ);
+        Zend_Db_Table_Abstract::setDefaultAdapter($db);
+        Zend_Registry::set('db', $db);
     }
 
-    /**
-     * Настройка маршрутов
-     */
-    public function setRouter() 
-    {
-        // Подключение файла правил маршрутизации
-        require($this->_config->path->settings . 'routes.php');
-
-        // Если переменная router не является объектом Zend_Controller_Router_Abstract, выбрасываем исключение
-        if (!($router instanceof Zend_Controller_Router_Abstract)) {
-            throw new Exception('Incorrect config file: routes');
-        }
-        
-        return $router;
-    }                                                       
-     
+    public function run() {
+        $this->_initDB();
+        $front = Zend_Controller_Front::getInstance();
+        $front->dispatch();
+    }
 
 }
-
