@@ -1,7 +1,7 @@
 <?php
 require_once 'core/library/Zend/Loader/Autoloader.php';
 
-class Bootstrap
+class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
    private $_config = null;    
     
@@ -57,8 +57,8 @@ class Bootstrap
      */
     public function setLoader() 
     {        
-        $autoloader = Zend_Loader_Autoloader::getInstance();        
-        $autoloader->setFallbackAutoloader(true);       
+       // $autoloader = Zend_Loader_Autoloader::getInstance();        
+        //$autoloader->setFallbackAutoloader(true);       
     }
 
     /**

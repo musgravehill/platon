@@ -16,6 +16,12 @@ set_include_path($paths);
 // Подключение главного системного класса
 require '/core/Bootstrap.php';
 
+
+require_once 'core/library/Zend/Loader/Autoloader.php';
+$autoloader = Zend_Loader_Autoloader::getInstance();        
+        $autoloader->setFallbackAutoloader(true);
+
+
 // Запуск приложения
 $bootstrap = new Bootstrap();
 $bootstrap->run($config);
