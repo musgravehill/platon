@@ -6,6 +6,7 @@ return array(
         'display_startup_errors' => 1,
         'display_errors' => 1,
     ),
+    'baseUrl'=>'/',
     'resources' => array(
         'frontController' => array(
             'controllerDirectory' => APPLICATION_PATH . '/controllers',
@@ -22,11 +23,12 @@ return array(
         'adapter' => 'Mysqli',
         'params' => array(
             'host' => 'localhost',
-            'username' => 'root',
-            'password' => 'mdeed',
+            'username' => 'platon',
+            'password' => 'platon',
             'dbname' => 'platon',
-            'charset' =>  'UTF8',
+            'charset' =>  'utf8',
             'profiler' => false,
+            'prefix'=>'plt_'
         ),
     ),
 );
