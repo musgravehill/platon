@@ -1,4 +1,6 @@
 <?php
+
+date_default_timezone_set("Etc/GMT-4");
 define('ROOT',realpath(dirname(__FILE__)));
 
 // Define path to application directory

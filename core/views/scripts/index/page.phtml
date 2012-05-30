@@ -1,0 +1,12 @@
+<?php
+
+
+
+echo  $this->node_data['node_fields']->content;
+
+foreach ($this->node_data['node_tags'] as $tag){
+    echo '<h3>'. $tag->tag_name   .'</h3>';
+}
+    
+
+?>

@@ -8,12 +8,19 @@ return array(
     ),
     'baseUrl'=>'/',
     'resources' => array(
-        'frontController' => array(
-            'controllerDirectory' => APPLICATION_PATH . '/controllers',
-            'params' => array(
-                'displayExceptions' => 1
-            )
-        )
+                            'frontController' => array(
+                                                            'controllerDirectory' => APPLICATION_PATH . '/controllers',
+                                                            'params' => array(
+                                                                'displayExceptions' => 1
+                                                            )
+                                                        ),
+        
+                            'layout' => array( 
+                                                'layout' => 'layout', 
+                                                'layoutPath' => APPLICATION_PATH.'/views/layouts',
+                                            ),
+                      
+        
     ),
     'bootstrap' => array(
         'path' => APPLICATION_PATH . '/Bootstrap.php',

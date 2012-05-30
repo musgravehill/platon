@@ -1,4 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset='UTF-8'>
+</head>
+<body>
+ <header> 
+     --------------------------ITS HEADER--------------------------------------------------<br>
+     -----------------------------------------------------------------------------------------
+ </header>   
+    
 <?php 
 echo $this->layout()->content; 
 ?>
 
+
+    <footer>
+        ------------------------------------------ITS FOOTER ----------------------<br>	
+        Все права защищены &copy; <?php echo date('Y');
+        echo '     '.round((memory_get_usage()/1024/1024), 2).' Mb';   ?>	
+    </footer>  
+</body>
+</html>
